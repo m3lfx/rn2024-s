@@ -14,7 +14,7 @@ const ProductContainer = () => {
     return (
         <View>
             <Text>Product Container</Text>
-            <View style={{ marginTop: 200 }} >
+            <View style={{ marginTop: 80 }} >
                 <FlatList
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     numColumns={2}

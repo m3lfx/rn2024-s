@@ -4,11 +4,13 @@ import React from 'react';
 
 
 import ProductContainer from './Screens/Product/ProductContainer';
+import Header from './Shared/Header';
 export default function App() {
   return (
     <View style={styles.container}>
-    <ProductContainer />
-  </View>
+      <Header />
+      <ProductContainer />
+    </View>
   );
 }
 
