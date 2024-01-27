@@ -76,8 +76,7 @@ const ProductContainer = () => {
                                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                                 numColumns={2}
                                 data={products}
-
-                                renderItem={({ item }) => <ProductList key={item.brnad} item={item} />}
+                                renderItem={({ item }) => <ProductList key={item.brand} item={item} />}
                                 keyExtractor={item => item.name}
                             />
                         </View>
