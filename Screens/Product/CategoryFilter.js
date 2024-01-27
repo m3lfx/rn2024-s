@@ -14,9 +14,9 @@ const CategoryFilter = (props) => {
                 <HStack justifyContent="space-between">
                     <TouchableOpacity
                         key={1}
-                        // onPress={() => {
-                        //     props.categoryFilter('all'), props.setActive(-1)
-                        // }}
+                        onPress={() => {
+                            props.categoryFilter('all'), props.setActive(-1)
+                        }}
                     >
                         <Badge style={[styles.center, { margin: 4 },
                         props.active === -1 ? styles.active : styles.inactive]} colorScheme="info" >
@@ -26,10 +26,10 @@ const CategoryFilter = (props) => {
                     {props.categories.map((item) => (
                         <TouchableOpacity
                             key={item._id.$oid}
-                            // onPress={() => {
-                            //     props.categoryFilter(item._id.$oid),
-                            //         props.setActive(props.categories.indexOf(item))
-                            // }}
+                            onPress={() => {
+                                props.categoryFilter(item._id.$oid),
+                                    props.setActive(props.categories.indexOf(item))
+                            }}
                         >
                             <Badge
                                 style={[styles.center,

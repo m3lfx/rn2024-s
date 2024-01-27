@@ -5,12 +5,23 @@ import React from 'react';
 
 import ProductContainer from './Screens/Product/ProductContainer';
 import Header from './Shared/Header';
+import { NativeBaseProvider, extendTheme, } from "native-base";
+const theme = extendTheme({ colors: newColorTheme });
+const newColorTheme = {
+  brand: {
+    900: "#8287af",
+    800: "#7c83db",
+    700: "#b3bef6",
+  },
+};
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Header />
-      <ProductContainer />
-    </View>
+    <NativeBaseProvider theme={theme}>
+      <View style={styles.container}>
+        <Header />
+        <ProductContainer />
+      </View>
+    </NativeBaseProvider>
   );
 }
 
