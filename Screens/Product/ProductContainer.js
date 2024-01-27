@@ -5,7 +5,7 @@ import ProductList from "./ProductList";
 import { Ionicons } from "@expo/vector-icons";
 import SearchedProduct from "./SearchedProduct";
 const data = require('../../assets/data/products.json')
-
+const productCategories = require('../../assets/data/categories.json')
 const newColorTheme = {
     brand: {
         900: "#8287af",
@@ -19,7 +19,11 @@ import Banner from "../../Shared/Banner";
 const ProductContainer = () => {
     const [products, setProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [active, setActive] = useState([]);
+    const [initialState, setInitialState] = useState([])
     const [focus, setFocus] = useState();
+
     const searchProduct = (text) => {
         setProductsFiltered(
             products.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
@@ -36,11 +40,17 @@ const ProductContainer = () => {
     useEffect(() => {
         setProducts(data);
         setProductsFiltered(data);
+        setCategories(productCategories)
+        setActive(-1)
+        setInitialState(data);
         setFocus(false)
         return () => {
             setProducts([])
             setProductsFiltered([]);
             setFocus()
+            setCategories([])
+            setActive()
+            setInitialState();
         }
     }, [])
     return (
