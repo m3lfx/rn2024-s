@@ -15,6 +15,7 @@ const newColorTheme = {
 };
 const theme = extendTheme({ colors: newColorTheme });
 var { height } = Dimensions.get('window')
+import Banner from "../../Shared/Banner";
 const ProductContainer = () => {
     const [products, setProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([]);
@@ -42,15 +43,14 @@ const ProductContainer = () => {
             setFocus()
         }
     }, [])
-
-
     return (
         <NativeBaseProvider
             theme={theme}
         >
             <Center>
+
                 <VStack w="100%" space={5} alignSelf="center">
-                    <Heading fontSize="lg">Search</Heading>
+
                     <Input placeholder="Search"
                         onFocus={openList}
                         onChangeText={(text) => searchProduct(text)}
@@ -68,11 +68,11 @@ const ProductContainer = () => {
                         productsFiltered={productsFiltered}
                     />
                 ) : (
+
                     <View style={styles.container}>
-                        <Text>Product Container</Text>
                         <View style={styles.listContainer} >
+                            <Banner />
                             <FlatList
-                                //    horizontal
                                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                                 numColumns={2}
                                 data={products}
