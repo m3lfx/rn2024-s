@@ -6,6 +6,9 @@ import React from 'react';
 import ProductContainer from './Screens/Product/ProductContainer';
 import Header from './Shared/Header';
 import { NativeBaseProvider, extendTheme, } from "native-base";
+import { NavigationContainer } from '@react-navigation/native'
+import Main from './Navigators/Main'
+
 const theme = extendTheme({ colors: newColorTheme });
 const newColorTheme = {
   brand: {
@@ -16,11 +19,18 @@ const newColorTheme = {
 };
 export default function App() {
   return (
+
     <NativeBaseProvider theme={theme}>
-      <View style={styles.container}>
-        <Header />
-        <ProductContainer />
-      </View>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <Header />
+          <ProductContainer />
+          <Main />
+
+        </View>
+      </NavigationContainer>
+
+
     </NativeBaseProvider>
   );
 }
