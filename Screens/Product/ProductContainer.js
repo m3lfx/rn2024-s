@@ -28,6 +28,7 @@ const ProductContainer = () => {
         setCategories(productCategories)
         setActive(-1)
         setInitialState(data)
+        setProductsCtg(data)
         return () => {
             setProducts([])
             setProductsFiltered([]);
@@ -35,6 +36,7 @@ const ProductContainer = () => {
             setCategories([])
             setActive()
             setInitialState();
+            setProductsCtg([])
         }
     }, [])
     // return (
@@ -134,7 +136,7 @@ const ProductContainer = () => {
                                         <Text>No products found</Text>
                                     </View>
                                 )}
-                        <FlatList
+                        {/* <FlatList
                             //    horizontal
                             columnWrapperStyle={{ justifyContent: 'space-between' }}
                             numColumns={2}
@@ -142,7 +144,7 @@ const ProductContainer = () => {
                             // renderItem={({item}) => <Text>{item.brand}</Text>}
                             renderItem={({ item }) => <ProductList key={item.brand} item={item} />}
                             keyExtractor={item => item.name}
-                        />
+                        /> */}
                     </ScrollView>
 
                 )}
