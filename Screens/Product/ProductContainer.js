@@ -16,6 +16,7 @@ const newColorTheme = {
 const theme = extendTheme({ colors: newColorTheme });
 var { height } = Dimensions.get('window')
 import Banner from "../../Shared/Banner";
+import CategoryFilter from "./CategoryFilter";
 const ProductContainer = () => {
     const [products, setProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([]);
@@ -82,6 +83,9 @@ const ProductContainer = () => {
                     <View style={styles.container}>
                         <View style={styles.listContainer} >
                             <Banner />
+                            <View >
+                                <CategoryFilter categories={categories} />
+                            </View>
                             <FlatList
                                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                                 numColumns={2}
