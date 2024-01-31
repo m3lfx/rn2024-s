@@ -23,7 +23,6 @@ export default function App() {
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
         <Header />
-        {/* <ProductContainer /> */}
         <Main />
       </NavigationContainer>
     </NativeBaseProvider>

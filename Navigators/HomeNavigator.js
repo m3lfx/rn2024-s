@@ -17,9 +17,9 @@ function MyStack() {
             <Stack.Screen 
                 name='Product Detail'
                 component={SingleProduct}
-                options={{
-                    headerShown: false,
-                }}
+                // options={{
+                //     headerShown: false,
+                // }}
             />
            
         </Stack.Navigator>

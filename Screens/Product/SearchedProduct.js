@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native'
 import {
     Container,
     VStack,
@@ -12,12 +12,14 @@ import {
     Avatar,
     Spacer,
 } from "native-base";
-import { FlatList } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
 
 var { width } = Dimensions.get("window")
 
 const SearchedProduct = (props) => {
     const { productsFiltered } = props;
+    const navigation = useNavigation();
     return (
 
         <Container style={{ width: width }}>
@@ -26,6 +28,10 @@ const SearchedProduct = (props) => {
                 <Box width={80}>
 
                     <FlatList data={productsFiltered} renderItem={({ item }) =>
+                         <TouchableOpacity
+                         style={{ width: '50%' }}
+                         onPress={() => navigation.navigate("Product Detail", { item: item })
+                         }>
                         <Box borderBottomWidth="1" _dark={{
                             borderColor: "muted.50"
                         }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
@@ -53,7 +59,7 @@ const SearchedProduct = (props) => {
                                     {item.price}
                                 </Text>
                             </HStack>
-                        </Box>} keyExtractor={item => item._id} />
+                        </Box></TouchableOpacity>} keyExtractor={item => item._id} />
                 </Box>
             ) : (
                 <View style={styles.center}>
