@@ -8,6 +8,8 @@ import Header from './Shared/Header';
 import { NativeBaseProvider, extendTheme, } from "native-base";
 import { NavigationContainer } from '@react-navigation/native'
 import Main from './Navigators/Main'
+import { Provider } from "react-redux";
+import store from "./Redux/store";
 
 const theme = extendTheme({ colors: newColorTheme });
 const newColorTheme = {
@@ -19,13 +21,14 @@ const newColorTheme = {
 };
 export default function App() {
   return (
-
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        <Header />
-        <Main />
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer>
+          <Header />
+          <Main />
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
   );
 }
 
