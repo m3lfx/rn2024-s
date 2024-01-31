@@ -24,9 +24,7 @@ const SearchedProduct = (props) => {
 
         <Container style={{ width: width }}>
             {productsFiltered.length > 0 ? (
-
                 <Box width={80}>
-
                     <FlatList data={productsFiltered} renderItem={({ item }) =>
                          <TouchableOpacity
                          style={{ width: '50%' }}
