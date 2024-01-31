@@ -7,7 +7,9 @@ import {
     Text,
     Button
 } from 'react-native'
-
+import { addToCart } from '../../Redux/Actions/cartActions'
+import { useSelector, useDispatch } from 'react-redux'
+import Toast from 'react-native-toast-message'
 var { width } = Dimensions.get("window");
 
 const ProductCard = (props) => {

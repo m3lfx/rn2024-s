@@ -9,6 +9,7 @@ import Main from './Navigators/Main';
 
 import { Provider } from "react-redux";
 import store from "./Redux/store";
+import Toast from "react-native-toast-message";
 
 const theme = extendTheme({ colors: newColorTheme });
 const newColorTheme = {
@@ -25,6 +26,7 @@ export default function App() {
         <NavigationContainer>
           <Header />
           <Main />
+          <Toast />
         </NavigationContainer>
       </NativeBaseProvider>
     </Provider>
