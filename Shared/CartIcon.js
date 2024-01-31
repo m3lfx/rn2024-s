@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      alignContent: "center",
-      top: -4,
+      alignContent: "left",
+      top: -8,
       right: -18,
     },
     text: {
