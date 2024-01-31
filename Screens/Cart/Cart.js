@@ -10,8 +10,17 @@ var { height, width } = Dimensions.get("window");
 
 
 const Cart =() => {
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const cartItems = useSelector(state => state.cartItems)
     return (
-        <Text>It works</Text>
+        <View style={{flex:1}}>
+        {cartItems.map(x => {
+          return(
+            <Text>{x.name}</Text>
+          )
+        })}
+      </View>
     )
 }
 
