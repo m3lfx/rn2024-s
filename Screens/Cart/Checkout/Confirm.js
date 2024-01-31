@@ -8,4 +8,4 @@ const Confirm = () => {
         </View>
     )
 }
-export default Confir;
+export default Confirm;
