@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button, SafeAreaView } from 'react-native'
 import { Select, Item, Picker, Toast } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import FormContainer from '../../../Shared/Form/FormContainer'
@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 // import AuthGlobal from "../../../Context/Store/AuthGlobal"
 
 const countries = require("../../../assets/data/countries.json");
+import SelectDropdown from 'react-native-select-dropdown'
 
 const Checkout = (props) => {
     const [user, setUser] = useState('')
@@ -19,7 +20,7 @@ const Checkout = (props) => {
     const [address2, setAddress2] = useState('')
     const [city, setCity] = useState('')
     const [zip, setZip] = useState('')
-    const [country, setCountry] = useState('')
+    const [country, setCountry] = useState('Philippines')
     const [phone, setPhone] = useState('')
 
     const navigation = useNavigation()
@@ -63,6 +64,7 @@ const Checkout = (props) => {
     }
     console.log(orderItems)
     return (
+
         <KeyboardAwareScrollView
             viewIsInsideTabBar={true}
             extraHeight={200}
@@ -101,7 +103,7 @@ const Checkout = (props) => {
                     keyboardType={"numeric"}
                     onChangeText={(text) => setZip(text)}
                 />
-                {/* <Select
+                <Select
                     width="80%"
                     iosIcon={<Icon name="arrow-down" color={"#007aff"} />}
                     style={{ width: undefined }}
@@ -110,6 +112,7 @@ const Checkout = (props) => {
                     placeholderStyle={{ color: '#007aff' }}
                     placeholderIconColor="#007aff"
                     onValueChange={(e) => setCountry(e)}
+
                 >
                     {countries.map((c) => {
                         return <Select.Item
@@ -118,13 +121,36 @@ const Checkout = (props) => {
                             value={c.name}
                         />
                     })}
-                </Select> */}
+                </Select>
+                {/* <SelectDropdown
+                    buttonStyle={{ width: '80%' }}
+                    data={countries.map(c => ({ value: c.code, label: c.name }))}
+                    onSelect={(selectedItem, index) => {
+                        console.log(selectedItem, index)
+                    }}
+                    buttonTextAfterSelection={(selectedItem) => selectedItem.label}
+                    rowTextForSelection={(item) => item.label}
+                    width="80%"
+                    onValueChange={(e) => setCountry(e)}
+                    renderDropdownIcon={(isOpened) => {
+                        return (
+                            <Icon
+                                name={isOpened ? "chevron-up" : "chevron-down"}
+                                color={"#000"}
+                                size={18}
+                            />
+                        );
+                    }}
+                    defaultButtonText={'Select country'}
+
+                /> */}
 
                 <View style={{ width: '80%', alignItems: "center" }}>
                     <Button title="Confirm" onPress={() => checkOut()} />
                 </View>
             </FormContainer>
         </KeyboardAwareScrollView>
+
     )
 }
 export default Checkout;

@@ -14,6 +14,7 @@ const Cart = () => {
     const dispatch = useDispatch()
     const cartItems = useSelector(state => state.cartItems)
     var total = 0;
+    console.log("cart", cartItems)
     cartItems.forEach(cart => {
         return (total += cart.price)
     });
@@ -77,7 +78,7 @@ const Cart = () => {
                         rightOpenValue={-150}
                         previewOpenValue={-100}
                         previewOpenDelay={3000}
-                        closeOnRowBeginSwipe
+                        keyExtractor={item => item._id.$oid}
                     />
                 </Box>
             ) : (
