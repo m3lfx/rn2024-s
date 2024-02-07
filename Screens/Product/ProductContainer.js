@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import { View, StyleSheet, FlatList, ActivityIndicator, Dimensions, ScrollViewComponent } from 'react-native'
 import { Center, VStack, Input, Heading, Text, Icon, NativeBaseProvider, extendTheme, ScrollView, } from "native-base";
 import { Ionicons, SmallCloseIcon } from "@expo/vector-icons";
@@ -7,9 +8,9 @@ import ProductList from "./ProductList";
 import SearchedProduct from "./SearchedProduct";
 import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
-
-const data = require('../../assets/data/products.json')
-const productCategories = require('../../assets/data/categories.json')
+import axios from "axios";
+// const data = require('../../assets/data/products.json')
+// const productCategories = require('../../assets/data/categories.json')
 
 
 var { width, height } = Dimensions.get("window")
@@ -21,39 +22,67 @@ const ProductContainer = () => {
     const [active, setActive] = useState([]);
     const [initialState, setInitialState] = useState([])
     const [productsCtg, setProductsCtg] = useState([])
-    useEffect(() => {
-        setProducts(data);
-        setProductsFiltered(data);
-        setFocus(false);
-        setCategories(productCategories)
-        setActive(-1)
-        setInitialState(data)
-        setProductsCtg(data)
-        return () => {
-            setProducts([])
-            setProductsFiltered([]);
-            setFocus()
-            setCategories([])
-            setActive()
-            setInitialState();
-            setProductsCtg([])
-        }
-    }, [])
-    // return (
-    //     <View>
-    //         <Text>Product Container</Text>
-    //         <View style={{ marginTop: 50 }} >
-    //             <FlatList
-    //                 // horizontal
-    //                 columnWrapperStyle={{justifyContent: 'space-between'}}
-    //                 numColumns={2}
-    //                 data={products}
-    //                 renderItem={({ item }) => <ProductList key={item._id} item={item}/>}
-    //                 keyExtractor={item => item.name}
-    //             />
-    //         </View>
-    //     </View>
-    // )
+    
+    // useEffect(() => {
+    //     setProducts(data);
+    //     setProductsFiltered(data);
+    //     setFocus(false);
+    //     setCategories(productCategories)
+    //     setActive(-1)
+    //     setInitialState(data)
+    //     setProductsCtg(data)
+    //     return () => {
+    //         setProducts([])
+    //         setProductsFiltered([]);
+    //         setFocus()
+    //         setCategories([])
+    //         setActive()
+    //         setInitialState();
+    //         setProductsCtg([])
+    //     }
+    // }, [])
+    useFocusEffect((
+        useCallback(
+            () => {
+                setFocus(false);
+                setActive(-1);
+                // Products
+                axios
+                    .get(`${baseURL}products`)
+                    .then((res) => {
+                        setProducts(res.data);
+                        setProductsFiltered(res.data);
+                        setProductsCtg(res.data);
+                        setInitialState(res.data);
+                        // setLoading(false)
+                    })
+                    .catch((error) => {
+                        console.log('Api call error')
+                    })
+    
+                // Categories
+                axios
+                    .get(`${baseURL}categories`)
+                    .then((res) => {
+                        setCategories(res.data)
+                    })
+                    .catch((error) => {
+                        console.log('Api categories call error', error)
+                    })
+    
+                return () => {
+                    setProducts([]);
+                    setProductsFiltered([]);
+                    setFocus();
+                    setCategories([]);
+                    setActive();
+                    setInitialState();
+                };
+            },
+            [],
+        )
+    ))
+    
     const searchProduct = (text) => {
         setProductsFiltered(
             products.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
@@ -68,6 +97,19 @@ const ProductContainer = () => {
         setFocus(false);
     }
 
+    // const changeCtg = (ctg) => {
+    //     console.log(ctg)
+    //     {
+    //         ctg === "all"
+    //             ? [setProductsCtg(initialState), setActive(true)]
+    //             : [
+    //                 setProductsCtg(
+    //                     products.filter((i) => i.category.$oid === ctg),
+    //                     setActive(true)
+    //                 ),
+    //             ];
+    //     }
+    // };
     const changeCtg = (ctg) => {
         console.log(ctg)
         {
@@ -75,7 +117,7 @@ const ProductContainer = () => {
                 ? [setProductsCtg(initialState), setActive(true)]
                 : [
                     setProductsCtg(
-                        products.filter((i) => i.category.$oid === ctg),
+                        products.filter((i) => (i.category !== null && i.category.id) === ctg ),
                         setActive(true)
                     ),
                 ];
