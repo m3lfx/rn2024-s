@@ -1,15 +1,24 @@
 import Input from "../../Shared/Form/Input";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet } from 'react-native'
 import FormContainer from "../../Shared/Form/FormContainer";
 import Error from '../../Shared/Error'
 import { Button } from "native-base";
+import AuthGlobal from '../../Context/Store/AuthGlobal'
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../Context/Actions/Auth.actions'
 
 const Login = (props) => {
-
+    const context = useContext(AuthGlobal)
+    const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState("")
+    useEffect(() => {
+        if (context.stateUser.isAuthenticated === true) {
+          navigation.navigate("User Profile")
+        }
+      }, [context.stateUser.isAuthenticated])
     const handleSubmit = () => {
         const user = {
             email,
@@ -19,10 +28,18 @@ const Login = (props) => {
         if (email === "" || password === "") {
             setError("Please fill in your credentials");
         } else {
-            //   loginUser(user, context.dispatch);
+              loginUser(user, context.dispatch);
             console.log("error")
         }
     }
+    AsyncStorage.getAllKeys((err, keys) => {
+        AsyncStorage.multiGet(keys, (error, stores) => {
+          stores.map((result, i, store) => {
+            console.log({ [store[i][0]]: store[i][1] });
+            return true;
+          });
+        });
+      });
     return (
         <FormContainer>
             <Input
