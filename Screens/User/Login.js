@@ -1,5 +1,5 @@
 import Input from "../../Shared/Form/Input";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, Text, StyleSheet } from 'react-native'
 import FormContainer from "../../Shared/Form/FormContainer";
 import Error from '../../Shared/Error'
@@ -7,6 +7,7 @@ import { Button } from "native-base";
 import AuthGlobal from '../../Context/Store/AuthGlobal'
 import { useNavigation } from '@react-navigation/native';
 import { loginUser } from '../../Context/Actions/Auth.actions'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = (props) => {
     const context = useContext(AuthGlobal)
