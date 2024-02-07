@@ -9,6 +9,7 @@ import SearchedProduct from "./SearchedProduct";
 import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
 import axios from "axios";
+import baseURL from "../../assets/common/baseurl";
 // const data = require('../../assets/data/products.json')
 // const productCategories = require('../../assets/data/categories.json')
 
