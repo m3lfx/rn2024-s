@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Text, View, TouchableHighlight, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import { Box, VStack, HStack, Button, Avatar, Spacer, } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux'
@@ -7,12 +7,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { removeFromCart, clearCart } from '../../Redux/Actions/cartActions'
 var { height, width } = Dimensions.get("window");
+import EasyButton from "../../Shared/StyledComponents/EasyButton"
+import AuthGlobal from "../../Context/Store/AuthGlobal"
 
 
 const Cart = () => {
     const navigation = useNavigation()
     const dispatch = useDispatch()
     const cartItems = useSelector(state => state.cartItems)
+    const context = useContext(AuthGlobal)
     var total = 0;
     console.log("cart", cartItems)
     cartItems.forEach(cart => {
@@ -93,12 +96,37 @@ const Cart = () => {
                     <Text style={styles.price}>$ {total.toFixed(2)}</Text>
                 </HStack>
                 <HStack justifyContent="space-between">
-                    <Button alignItems="center" onPress={() => dispatch(clearCart())} >Clear</Button>
+                    {/* <Button alignItems="center" onPress={() => dispatch(clearCart())} >Clear</Button> */}
+                    <EasyButton
+                        danger
+                        medium
+                        alignItems="center"
+                        onPress={() => dispatch(clearCart())}
+                    >
+                        <Text style={{ color: 'white' }}>Clear</Text>
+                    </EasyButton>
                 </HStack>
-                <HStack justifyContent="space-between">
+                {/* <HStack justifyContent="space-between">
                    
                     <Button alignItems="center" colorScheme="primary" onPress={() => navigation.navigate('Checkout')}>Check Out</Button>
-                </HStack>
+                </HStack> */}
+                {context.stateUser.isAuthenticated ? (
+                    <EasyButton
+                        primary
+                        medium
+                        onPress={() => navigation.navigate('Checkout')}
+                    >
+                        <Text style={{ color: 'white' }}>Checkout</Text>
+                    </EasyButton>
+                ) : (
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("User", {screen: 'Login'})}
+                    >
+                        <Text style={{ color: 'white' }}>Login</Text>
+                    </EasyButton>
+                )}
             </VStack >
         </>
     )
