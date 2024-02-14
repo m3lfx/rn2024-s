@@ -93,7 +93,7 @@ const ProductForm = (props) => {
         });
 
         if (!result.canceled) {
-            console.log(result.assets)
+            console.log(result)
             setMainImage(result.assets[0].uri);
             setImage(result.assets[0].uri);
         }
