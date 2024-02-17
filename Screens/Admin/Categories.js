@@ -30,7 +30,7 @@ const Item = (props) => {
     )
 }
 
-const Categories = (props) => {
+const Categories = () => {
 
     const [categories, setCategories] = useState([]);
     const [categoryName, setCategoryName] = useState();
@@ -68,7 +68,7 @@ const Categories = (props) => {
         axios
             .post(`${baseURL}categories`, category, config)
             .then((res) => setCategories([...categories, res.data]))
-            .catch((error) => alert("Error to load categories"));
+            .catch((error) => alert("Error  load categories"));
 
         setCategoryName("");
     }
