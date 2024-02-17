@@ -60,7 +60,6 @@ const SingleProduct = ({ route }) => {
                     <Text style={{ color: "white" }}> Add</Text>
                 </EasyButton>
             </ScrollView>
-
         </Center >
     )
 }
