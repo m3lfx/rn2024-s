@@ -34,7 +34,7 @@ const Orders = (props) => {
                 renderItem={({item}) => ( 
                    
                     // <Text>{item.shippingAddress1}</Text>
-                    <OrderCard item={item} />
+                    <OrderCard item={item}  />
                     )
                 }
                 keyExtractor={(item) => item.id}    
