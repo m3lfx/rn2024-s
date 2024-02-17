@@ -112,7 +112,7 @@ const Register = () => {
                 aspect: [4, 3],
                 quality: 0.1,
             });
-            // console.log(result)
+            console.log(result)
            
             // setImage(data.uri);
             // setMainImage(data.uri)
@@ -155,7 +155,7 @@ const Register = () => {
                         </View>
                         <Button
                             variant={"ghost"}
-                            onPress={() => addPhoto()}><Text> add photo</Text>
+                            onPress={() => takePicture()}><Text> add photo</Text>
                         </Button>
                         <Button
                             variant={"ghost"}
