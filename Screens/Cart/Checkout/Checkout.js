@@ -8,7 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
-// import AuthGlobal from "../../../Context/Store/AuthGlobal"
+import AuthGlobal from "../../../Context/Store/AuthGlobal"
 
 const countries = require("../../../assets/data/countries.json");
 import SelectDropdown from 'react-native-select-dropdown'
@@ -25,21 +25,21 @@ const Checkout = (props) => {
 
     const navigation = useNavigation()
     const cartItems = useSelector(state => state.cartItems)
-    // const context = useContext(AuthGlobal);
+    const context = useContext(AuthGlobal);
 
     useEffect(() => {
         setOrderItems(cartItems)
-        // if(context.stateUser.isAuthenticated) {
-        //     setUser(context.stateUser.user.userId)
-        // } else {
-        //     navigation.navigate("User",{ screen: 'Login' });
-        //     Toast.show({
-        //         topOffset: 60,
-        //         type: "error",
-        //         text1: "Please Login to Checkout",
-        //         text2: ""
-        //     });
-        // }
+        if(context.stateUser.isAuthenticated) {
+            setUser(context.stateUser.user.userId)
+        } else {
+            navigation.navigate("User",{ screen: 'Login' });
+            Toast.show({
+                topOffset: 60,
+                type: "error",
+                text1: "Please Login to Checkout",
+                text2: ""
+            });
+        }
         return () => {
             setOrderItems();
         }
@@ -56,7 +56,7 @@ const Checkout = (props) => {
             shippingAddress1: address,
             shippingAddress2: address2,
             status: "3",
-            // user,
+            user,
             zip,
         }
         console.log("ship", order)
@@ -122,29 +122,7 @@ const Checkout = (props) => {
                         />
                     })}
                 </Select>
-                {/* <SelectDropdown
-                    buttonStyle={{ width: '80%' }}
-                    data={countries.map(c => ({ value: c.code, label: c.name }))}
-                    onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
-                    }}
-                    buttonTextAfterSelection={(selectedItem) => selectedItem.label}
-                    rowTextForSelection={(item) => item.label}
-                    width="80%"
-                    onValueChange={(e) => setCountry(e)}
-                    renderDropdownIcon={(isOpened) => {
-                        return (
-                            <Icon
-                                name={isOpened ? "chevron-up" : "chevron-down"}
-                                color={"#000"}
-                                size={18}
-                            />
-                        );
-                    }}
-                    defaultButtonText={'Select country'}
-
-                /> */}
-
+               
                 <View style={{ width: '80%', alignItems: "center" }}>
                     <Button title="Confirm" onPress={() => checkOut()} />
                 </View>
