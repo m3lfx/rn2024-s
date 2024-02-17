@@ -21,7 +21,6 @@ const Orders = (props) => {
     const getOrders = () => {
         axios.get(`${baseURL}orders`)
         .then((x) => {
-            
             setOrderList(x.data)
         })
         .catch((error) => console.log(error))

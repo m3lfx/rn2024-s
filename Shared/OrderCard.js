@@ -74,11 +74,11 @@ const OrderCard = ({ item }) => {
       });
   }
   useEffect(() => {
-    if (item.status == "3") {
+    if (item.status === "3") {
       setOrderStatus(<TrafficLight unavailable></TrafficLight>);
       setStatusText("pending");
       setCardColor("#E74C3C");
-    } else if (item.status == "2") {
+    } else if (item.status === "2") {
       setOrderStatus(<TrafficLight limited></TrafficLight>);
       setStatusText("shipped");
       setCardColor("#F1C40F");
