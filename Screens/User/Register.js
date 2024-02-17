@@ -95,6 +95,7 @@ const Register = () => {
         setLaunchCam(true)
         if (camera) {
             const data = await camera.takePictureAsync(null)
+            console.log(data)
             setImage(data.uri);
             setMainImage(data.uri)
             setLaunchCam(false)
