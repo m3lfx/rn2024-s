@@ -161,14 +161,14 @@ const DrawerNavigator = () => {
           component={Main}
         />
          {/* <Drawer.Screen name="drawer" component={Main} /> */}
-        <Drawer.Screen name="Products" component={ProductContainer}   />
+        {/* <Drawer.Screen name="Products" component={ProductContainer}   />
         <Drawer.Screen name="Login" component={Login}  />
         <Drawer.Screen name="Cart" component={Cart} />
-        <Drawer.Screen name="Product List" component={Products} /> 
-        {/* <Drawer.Screen name="Products" component={Main} initialParams={{ screen: 'Products' }} />
+        <Drawer.Screen name="Product List" component={Products} />  */}
+        <Drawer.Screen name="Products" component={Main} initialParams={{ screen: 'Products' }} />
         <Drawer.Screen name="Login" component={Main} initialParams={{ screen: 'User' }} />
          <Drawer.Screen name="Cart" component={Main} initialParams={{ screen: 'Cart' }} />
-        <Drawer.Screen name="Product List" component={Main}  initialParams={{ screen: 'Admin' }}/> */}
+        <Drawer.Screen name="Product List" component={Main}  initialParams={{ screen: 'Admin' }}/>
 
       </Drawer.Navigator>
     </Box>
