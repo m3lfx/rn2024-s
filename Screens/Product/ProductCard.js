@@ -27,7 +27,7 @@ const ProductCard = (props) => {
             />
             <View style={styles.card} />
             <Text style={styles.title}>
-                {name.length > 15 ? name.substring(0, 15 - 3)
+                {(name.length && name.length > 15) ? name.substring(0, 15 - 3)
                     + '...' : name
                 }
             </Text>
