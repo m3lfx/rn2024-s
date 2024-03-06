@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useFocusEffect, useRef } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, PermissionsAndroid, Linking } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from '@react-navigation/native';
 import { Button, Center } from "native-base";
@@ -16,6 +16,8 @@ var { height, width } = Dimensions.get("window")
 import mime from "mime";
 import * as ImagePicker from "expo-image-picker"
 
+import * as Location from 'expo-location';
+
 const Register = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -28,6 +30,8 @@ const Register = () => {
     const [camera, setCamera] = useState(null);
     // const cameraRef = useRef(null);
     const [launchCam, setLaunchCam] = useState(false)
+    const [location, setLocation] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     const [type, setType] = useState(Camera.Constants.Type.back);
     const navigation = useNavigation()
@@ -127,13 +131,36 @@ const Register = () => {
         
 
     };
-
+    
+    const getLocation = () => {
+        const {coords} = location
+        const url = `geo:${coords.latitude},${coords.longtitude}?z=15&q='restaurants'`;
+        Linking.openURL(url);
+    }
+console.log(location)
     useEffect(() => {
         (async () => {
             const cameraStatus = await Camera.requestCameraPermissionsAsync();
             setHasCameraPermission(cameraStatus.status === 'granted');
         })();
+        (async () => {
+      
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+              setErrorMsg('Permission to access location was denied');
+              return;
+            }
+      
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+          })();
     }, []);
+console.log(location)
+    // useEffect(() => {
+       
+    //     getLocation()
+    // }, []);
+
 
     return (
         <KeyboardAwareScrollView
@@ -218,6 +245,12 @@ const Register = () => {
                         onPress={() => navigation.navigate("Login")}
                     >
                         <Text style={{ color: "blue" }}>Back to Login</Text>
+                    </Button>
+                   
+                    <Button variant={"ghost"}
+                        onPress={getLocation}
+                    >
+                        <Text style={{ color: "blue" }}>location</Text>
                     </Button>
                 </View>
             </FormContainer>
