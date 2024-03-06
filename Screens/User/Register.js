@@ -108,16 +108,16 @@ const Register = () => {
 
     const takePicture = async () => {
         setLaunchCam(true)
-       
+
         const c = await ImagePicker.requestCameraPermissionsAsync();
 
         if (c.status === "granted") {
-             let result = await ImagePicker.launchCameraAsync({
+            let result = await ImagePicker.launchCameraAsync({
                 aspect: [4, 3],
                 quality: 0.1,
             });
             console.log(result)
-           
+
             // setImage(data.uri);
             // setMainImage(data.uri)
             if (!result.canceled) {
@@ -125,39 +125,39 @@ const Register = () => {
                 setMainImage(result.assets[0].uri);
                 setImage(result.assets[0].uri);
             }
-    
+
         }
 
-        
+
 
     };
-    
+
     const getLocation = () => {
-        const {coords} = location
+        const { coords } = location
         const url = `geo:${coords.latitude},${coords.longtitude}?z=15&q='restaurants'`;
         Linking.openURL(url);
     }
-console.log(location)
+    console.log(location)
     useEffect(() => {
         (async () => {
             const cameraStatus = await Camera.requestCameraPermissionsAsync();
             setHasCameraPermission(cameraStatus.status === 'granted');
         })();
         (async () => {
-      
+
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
-              setErrorMsg('Permission to access location was denied');
-              return;
+                setErrorMsg('Permission to access location was denied');
+                return;
             }
-      
-            let location = await Location.getCurrentPositionAsync({});
+
+            let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest});
             setLocation(location);
-          })();
+        })();
     }, []);
-console.log(location)
+    console.log(location)
     // useEffect(() => {
-       
+
     //     getLocation()
     // }, []);
 
@@ -246,7 +246,7 @@ console.log(location)
                     >
                         <Text style={{ color: "blue" }}>Back to Login</Text>
                     </Button>
-                   
+
                     <Button variant={"ghost"}
                         onPress={getLocation}
                     >
